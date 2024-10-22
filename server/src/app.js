@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express, { json } from "express";
 import cors from "cors";
+import db from "./util/db-connect.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -8,10 +9,10 @@ const app = express();
 app.use(cors());
 app.use(json());
 
-app.get("/", async (_, res) => {
-  return res.json({ msg: "Hello World, this seems to work" });
+app.get("/", (req, res) => {
+  res.json({ success: true });
 });
 
 app.listen(PORT, () => {
-  console.log("api is apparently running on port " + PORT);
+  console.log("api running on port " + PORT);
 });
