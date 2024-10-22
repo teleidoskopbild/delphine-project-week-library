@@ -1,15 +1,20 @@
 @startuml database-schema
 
+' https://github.com/plantuml/plantuml/blob/master
+!theme plain
+
 map user {
     id => unique_id
     name => string
+    ... => ...
 }
 
 map book {
     id => unique_id
     title => string
     quantity_in_stock => integer
-    fk_genre_id => unique_id
+    fk_author => unique_id
+    ... => ...
 }
 
 map genre {
@@ -29,11 +34,16 @@ map borrowed_books {
     returned_at => date
 }
 
+map author {
+    id => unique_id
+    name => string
+}
+
 user "1" -- "n" borrowed_books
 book "1" -- "n" borrowed_books
 book "1" -- "n" book_genre
 genre "1" -- "n" book_genre
-
+book "n" -- "1" author
 
 @enduml
 
