@@ -1,0 +1,39 @@
+@startuml database-schema
+
+map user {
+    id => unique_id
+    name => string
+}
+
+map book {
+    id => unique_id
+    title => string
+    quantity_in_stock => integer
+    fk_genre_id => unique_id
+}
+
+map genre {
+    id => unique_id
+    name => string
+}
+
+map book_genre {
+    fk_book_id => unique_id
+    fk_genre_id => unique_id
+}
+
+map borrowed_books {
+    fk_user_id => unique_id
+    fk_book_id => unique_id
+    borrowed_at => date
+    returned_at => date
+}
+
+user "1" -- "n" borrowed_books
+book "1" -- "n" borrowed_books
+book "1" -- "n" book_genre
+genre "1" -- "n" book_genre
+
+
+@enduml
+

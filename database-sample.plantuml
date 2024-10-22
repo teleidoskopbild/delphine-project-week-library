@@ -1,0 +1,41 @@
+@startuml database-sample
+
+object user {
+    |= id |= name |
+    | 1   | John  |
+    | 2   | Jane  |
+}
+
+object book {
+    |= id |= title |= quantity  |= fk_genre_id |
+    | 1  | Book1   | 10         | 1           |
+    | 2  | Book2   | 20         | 2           |
+    | 3  | Book3   | 5          | 1           |
+}
+
+object borrowed_books {
+    |= fk_user_id |= fk_book_id |= borrowed_at |= returned_at |
+    | 1           | 1           | 2020-01-01   | 2020-01-10  |
+    | 1           | 2           | 2020-01-02   | 2020-01-12  |
+    | 2           | 3           | 2020-01-03   | 2020-01-13  |
+}
+
+object genres {
+    |= id   |= name    |
+    | 1     | Fiction  |
+    | 2     | Crime    |
+}
+
+object book_genres {
+    |= fk_book_id |= fk_genre_id |
+    | 1           | 1            |
+    | 1           | 2            |
+    | 2           | 1            |
+}
+
+user "1" -- "n" borrowed_books
+book "1" -- "n" borrowed_books
+book "1" -- "n" book_genres
+genres "1" -- "n" book_genres
+
+@enduml
