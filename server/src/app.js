@@ -5,9 +5,7 @@ import db from "./util/db-connect.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-async function getRoot(req, res) {
-  return res.json({ msg: "Hello World" });
-}
+
 app.use(cors());
 app.use(json());
 
