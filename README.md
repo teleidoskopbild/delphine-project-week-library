@@ -7,3 +7,5 @@
 - Saleh
 
 This is a test related to issue #10.
+
+This is a test related to issue #12.
