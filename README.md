@@ -1,5 +1,6 @@
-# delphine-project-week-library
+# DELPHINE PROJECT WEEK LIBRARY
 
 ## Team members
 
 - Ladan
+- Can
