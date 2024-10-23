@@ -2,9 +2,34 @@ import { useState } from "react";
 
 export default function Login() {
   const [formData, setFormData] = useState({ username: "" });
-  function handleSubmit(e) {
+  const [errorMessage, setErrorMessage] = useState("");
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData);
+    setErrorMessage(""); // Clear any previous error message
+
+    try {
+      const response = await fetch("http://localhost:3000/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: formData.username }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        console.log(data);
+      } else if (response.status === 404) {
+        setErrorMessage("User not found.");
+      } else {
+        setErrorMessage("An error occurred. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setErrorMessage("An internal error occurred. Please try again.");
+    }
   }
   return (
     <div className="login-container">
@@ -24,6 +49,7 @@ export default function Login() {
         </div>
         <button type="submit">Login</button>
       </form>
+      <p> {errorMessage}</p>
     </div>
   );
 }
