@@ -4,11 +4,36 @@ import { UserContext } from "../../context/userContext.js";
 export default function Login() {
   const { username, setUsername } = useContext(UserContext);
   const [formData, setFormData] = useState({ username: "" });
+  const [errorMessage, setErrorMessage] = useState("");
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setUsername(formData.username);
-    console.log(formData.username);
+    setErrorMessage(""); // Clear any previous error message
+
+    try {
+      const response = await fetch("http://localhost:3000/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: formData.username }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUsername(data.name);
+      } else if (response.status === 404) {
+        setErrorMessage("User not found.");
+        setUsername(null);
+      } else {
+        setErrorMessage("An error occurred. Please try again.");
+        setUsername(null);
+      }
+    } catch (error) {
+      setUsername(null);
+      console.error("Error during login:", error);
+      setErrorMessage("An internal error occurred. Please try again.");
+    }
   }
   return (
     <div className="login-container">
@@ -29,6 +54,7 @@ export default function Login() {
         </div>
         <button type="submit">Login</button>
       </form>
+      <p> {errorMessage}</p>
     </div>
   );
 }
