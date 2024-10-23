@@ -1,5 +1,11 @@
+import { useState } from "react";
+
 export default function Login() {
-  // return <h1>Login Page</h1>
+  const [formData, setFormData] = useState({ username: "" });
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(formData);
+  }
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit}>
