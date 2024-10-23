@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../../context/userContext.js";
 
 export default function Login() {
+  const { username, setUsername } = useContext(UserContext);
   const [formData, setFormData] = useState({ username: "" });
+
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData);
+    setUsername(formData.username);
+    console.log(formData.username);
   }
   return (
     <div className="login-container">
+      {username ? <p>Logged in as: {username}</p> : null}
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Benutzername:</label>
