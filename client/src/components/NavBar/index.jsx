@@ -1,15 +1,20 @@
-import { Link } from "react-router-dom";
-// import "./NavBar.css";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 export default function NavBar() {
+  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+  const onLogoutClick = () => {
+    setUsername("");
+    navigate("/", { state: username });
+  };
   return (
     <header className="header">
       <nav className="nav">
         <ul>
           <li>
-            <Link to="/planner">Home</Link>
-          </li>
-          <li>
-            <Link to="/logout">Logout</Link>
+            <Link to="/" onClick={onLogoutClick}>
+              Logout
+            </Link>
           </li>
         </ul>
       </nav>
