@@ -1,6 +1,6 @@
 import { UserContext } from "../../context/userContext.js";
 import { useContext } from "react";
-
+import { Link } from "react-router-dom";
 export default function NavBar() {
   const { setUsername } = useContext(UserContext);
   const onLogoutClick = () => {
@@ -11,7 +11,9 @@ export default function NavBar() {
       <nav className="nav">
         <ul>
           <li>
-            <button onClick={onLogoutClick}>Logout</button>
+            <Link to="/">
+              <button onClick={onLogoutClick}>Logout</button>
+            </Link>
           </li>
         </ul>
       </nav>
