@@ -1,20 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { UserContext } from "../../context/userContext.js";
+import { useContext } from "react";
+
 export default function NavBar() {
-  const [username, setUsername] = useState("");
-  const navigate = useNavigate();
+  const { setUsername } = useContext(UserContext);
   const onLogoutClick = () => {
-    setUsername("");
-    navigate("/", { state: username });
+    setUsername(null);
   };
   return (
     <header className="header">
       <nav className="nav">
         <ul>
           <li>
-            <Link to="/" onClick={onLogoutClick}>
-              Logout
-            </Link>
+            <button onClick={onLogoutClick}>Logout</button>
           </li>
         </ul>
       </nav>
