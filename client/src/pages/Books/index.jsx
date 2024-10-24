@@ -17,33 +17,33 @@ export default function Books() {
     { quantity: 1 },
     { quantity: 4 },
   ];
-  //   async function fetchBooks() {
-  //     setErrorMessage("");
+  async function fetchBooks() {
+    setErrorMessage("");
 
-  //     try {
-  //       const response = await fetch("http://localhost:3000/books", {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
+    try {
+      const response = await fetch("http://localhost:3000/books", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         setBooks(data);
-  //       } else if (response.status === 404) {
-  //         setErrorMessage("books not found.");
-  //         setBooks(null);
-  //       } else {
-  //         setErrorMessage("An error occurred. Please try again.");
-  //         setBooks(null);
-  //       }
-  //     } catch (error) {
-  //       setBooks(null);
-  //       console.error("Error during books:", error);
-  //       setErrorMessage("An internal error occurred. Please try again.");
-  //     }
-  //   }
+      if (response.ok) {
+        const data = await response.json();
+        setBooks(data);
+      } else if (response.status === 404) {
+        setErrorMessage("books not found.");
+        setBooks(null);
+      } else {
+        setErrorMessage("An error occurred. Please try again.");
+        setBooks(null);
+      }
+    } catch (error) {
+      setBooks(null);
+      console.error("Error during books:", error);
+      setErrorMessage("An internal error occurred. Please try again.");
+    }
+  }
 
   //   async function fetchquantity() {
   //     setErrorMessage("");
@@ -74,9 +74,9 @@ export default function Books() {
   //   }
 
   useEffect(() => {
-    // fetchBooks();
+    fetchBooks();
     // fetchquantity();
-    setBooks(objBooks);
+    // setBooks(objBooks);
     setQuantityBorrowed(objQuantityBorrowed);
   }, []);
 
