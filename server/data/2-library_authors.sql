@@ -1,15 +1,15 @@
 
-DROP TABLE IF EXISTS author;
+DROP TABLE IF EXISTS library_authors;
 
 -- Create Author table
 
-CREATE TABLE author (
+CREATE TABLE library_authors (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
  -- Insert data into Author table
-INSERT INTO author ( name) VALUES
+INSERT INTO library_authors ( name) VALUES
 ( 'Astrid L.'),
 ('Franz K.'),
 ('J.K. Rowling'),
@@ -19,4 +19,4 @@ INSERT INTO author ( name) VALUES
 ('Viktor Mayer-Schönberger
 '),
 ('Robert C. Martin Series');
-SELECT * FROM author;
+SELECT * FROM library_authors;
