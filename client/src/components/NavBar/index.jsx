@@ -6,6 +6,9 @@ export default function NavBar() {
   const onLogoutClick = () => {
     setUsername(null);
   };
+  const onLoginClick = () => {
+    setUsername(username);
+  };
   return (
     <header className="header">
       <nav className="nav">
@@ -16,11 +19,13 @@ export default function NavBar() {
                 <button onClick={onLogoutClick}>Logout</button>
               </Link>
             ) : (
-              <Link to="/login">Login</Link>
+              <Link to="/login">
+                <button onClick={onLoginClick}>Login</button>
+              </Link>
             )}
 
             <Link to="/authors">Authors</Link>
-            <Link to="/books">Books</Link>
+            <Link to="/">Books</Link>
             <Link to="/profile">Profile</Link>
           </li>
         </ul>
