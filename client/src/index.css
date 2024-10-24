@@ -2,4 +2,26 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  --primary-color: #3498db;
+  --primary-light: #9bcaea;
+  --primary-dark: #21618c;
+
+  --secondary-color: #2ecc71;
+  --secondary-light: #82e0aa;
+  --secondary-dark: #239b56;
+
+  --tertiary-color: #e74c3c;
+  --tertiary-light: #f1948a;
+  --tertiary-dark: #c0392b;
+
+  --warning-color: #f39c12;
+  --success-color: #27ae60;
+
+  --font-main: "Arial", sans-serif;
+  --font-side: "Courier New", monospace;
+
+  --big-font: 2rem;
+  --medium-font: 1.5rem;
+  --small-font: 1rem;
 }
