@@ -26,7 +26,7 @@ export default function NavBar() {
 
             <Link to="/authors">Authors</Link>
             <Link to="/">Books</Link>
-            <Link to="/profile">Profile</Link>
+            {username && <Link to="/profile">Profile</Link>}
           </li>
         </ul>
       </nav>
