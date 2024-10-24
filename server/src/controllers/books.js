@@ -10,13 +10,21 @@ export const getAllBooks = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-
-//Book return
-export async function getReturnBooks(req, res) {
+/**
+ * @api POST /books/return Return a Book(update returned_at )
+ *
+ * @sampleRequest
+ * {
+ *  "bookId": 1,
+ *  "userId":1,
+ *  "date":"2020-01-01"
+ * }
+ */
+export async function returnBooks(req, res) {
   try {
     const retunBooks = await db("library_borrowed_books")
       .first()
-      .where({ fk_book_id: Number(req.params.id) })
+      .where({ fk_book_id: req.body.bookId, fk_user_id: req.body.userId })
       .update({ returned_at: req.body.date })
       .returning("*");
     if (retunBooks.length < 1) {
