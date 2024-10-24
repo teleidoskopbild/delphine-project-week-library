@@ -3,6 +3,7 @@ import express, { json } from "express";
 import cors from "cors";
 import db from "./util/db-connect.js";
 import usersRoutes from "./routes/users.js";
+import booksRoutes from "./routes/books.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(json());
 
 app.use("/users", usersRoutes);
+app.use("/books", booksRoutes);
 
 app.get("/", (req, res) => {
   res.json({ success: true });
