@@ -3,8 +3,8 @@ import db from "../util/db-connect.js";
 // Get all books
 export const getAllBooks = async (req, res) => {
   try {
-    const notes = await db("library_books");
-    return res.json(notes);
+    const books = await db("library_books");
+    return res.json(books);
   } catch (error) {
     console.error("Error fetching notes:", error);
     return res.status(500).json({ message: "Internal server error" });
@@ -31,6 +31,7 @@ export const getUserBorrowedBooks = async (req, res) => {
         "library_authors.id"
       )
       .select(
+        "library_books.id",
         "library_books.title",
         "library_books.quantity",
         "library_authors.name as author",

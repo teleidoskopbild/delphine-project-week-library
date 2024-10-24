@@ -5,8 +5,9 @@ import { useState } from "react";
 
 function App() {
   const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
   return (
-    <UserContext.Provider value={{ username, setUsername }}>
+    <UserContext.Provider value={{ userId, username, setUsername, setUserId }}>
       <>
         <NavBar />
         <Outlet></Outlet>

@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../context/userContext.js";
 
 export default function Login() {
-  const { username, setUsername } = useContext(UserContext);
+  const { setUserId, username, setUsername } = useContext(UserContext);
+  console.log(username);
   const [formData, setFormData] = useState({ username: "" });
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -22,6 +23,7 @@ export default function Login() {
       if (response.ok) {
         const data = await response.json();
         setUsername(data.name);
+        setUserId(data.userId);
       } else if (response.status === 404) {
         setErrorMessage("User not found.");
         setUsername(null);
