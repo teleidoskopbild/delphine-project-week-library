@@ -2,7 +2,7 @@ import { UserContext } from "../../context/userContext.js";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 export default function NavBar() {
-  const { setUsername } = useContext(UserContext);
+  const { setUsername, username } = useContext(UserContext);
   const onLogoutClick = () => {
     setUsername(null);
   };
@@ -11,9 +11,17 @@ export default function NavBar() {
       <nav className="nav">
         <ul>
           <li>
-            <Link to="/">
-              <button onClick={onLogoutClick}>Logout</button>
-            </Link>
+            {username ? (
+              <Link to="/">
+                <button onClick={onLogoutClick}>Logout</button>
+              </Link>
+            ) : (
+              <Link to="/login">Login</Link>
+            )}
+
+            <Link to="/authors">Authors</Link>
+            <Link to="/books">Books</Link>
+            <Link to="/profile">Profile</Link>
           </li>
         </ul>
       </nav>
