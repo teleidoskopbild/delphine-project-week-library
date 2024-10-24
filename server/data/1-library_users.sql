@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS library_users;
+DROP TABLE IF EXISTS library_users CASCADE;
 
 CREATE TABLE library_users (
     id SERIAL PRIMARY KEY,

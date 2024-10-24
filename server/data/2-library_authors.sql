@@ -1,5 +1,5 @@
 
-DROP TABLE IF EXISTS library_authors;
+DROP TABLE IF EXISTS library_authors CASCADE;
 
 -- Create Author table
 
