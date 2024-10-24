@@ -5,6 +5,6 @@ import { getReturnBooks } from "../controllers/books.js";
 const router = Router();
 
 router.get("/", getAllBooks);
-router.get("/return", getReturnBooks);
+router.post("/return", getReturnBooks);
 
 export default router;

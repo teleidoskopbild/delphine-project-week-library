@@ -13,7 +13,6 @@ app.use(json());
 
 app.use("/users", usersRoutes);
 app.use("/books", booksRoutes);
-app.use("/books", booksRoutes);
 app.get("/", (req, res) => {
   res.json({ success: true });
 });
