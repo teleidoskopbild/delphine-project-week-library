@@ -31,6 +31,7 @@ export const getUserBorrowedBooks = async (req, res) => {
         "library_authors.id"
       )
       .select(
+        "library_books.id",
         "library_books.title",
         "library_books.quantity",
         "library_authors.name as author",

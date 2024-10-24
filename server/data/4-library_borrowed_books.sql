@@ -8,7 +8,7 @@ CREATE TABLE library_borrowed_books (
     fk_book_id INT REFERENCES library_books(id),  -- Changed to INT to match the data type of library_books.id
 
     borrowed_at DATE NOT NULL,
-    returned_at DATE, 
+    returned_at DATE
     --(fk_user_id) INT REFERENCES library_users(id),
     --(fk_book_id) INT REFERENCES library_books(id)
     
