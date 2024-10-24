@@ -16,7 +16,6 @@ INSERT INTO library_authors ( name) VALUES
 ( 'Frederick P. Brooks Jr'),
 ( 'Robert C. Martin'),
 ( 'Scott Chacon'),
-('Viktor Mayer-Schönberger
-'),
+('Viktor Mayer-Schönberger'),
 ('Robert C. Martin Series');
 SELECT * FROM library_authors;
