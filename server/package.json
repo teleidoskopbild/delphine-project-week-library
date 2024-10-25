@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch-path=src src/app.js",
+    "reset-db": "cd ./data && psql -U $USER -d $USER -f ./master-script.sql && cd ..",
     "start": "node src/app.js"
   },
   "dependencies": {
