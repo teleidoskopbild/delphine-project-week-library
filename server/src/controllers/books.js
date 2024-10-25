@@ -22,14 +22,48 @@ export const getAllBooks = async (req, res) => {
  */
 export async function borrowBooks(req, res) {
   try {
-    const borrowBooks = await db("library_borrowed_books")
-      .first()
-      .where({ fk_book_id: req.body.bookId, fk_user_id: req.body.userId })
-      .update({ borrowed_at: req.body.date })
-      .returning("*");
-    if (borrowBooks.length < 1) {
-      return res.status(404).json({ msg: "Book not found" });
+    // Check if it is allowed to borrow the book
+    // SELECT fk_book_id FROM library_borrowed_books WHERE fk_book_id={bookId} AND returned_at IS NULL
+
+    if (!req.body.userId) {
+      return res.status(404).json({ message: "user not found" });
     }
+
+    const book = await db("library_books")
+      .where({ id: req.body.bookId })
+      .first();
+
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    const borrowedCopies = await db("library_borrowed_books")
+      .where({
+        fk_book_id: req.body.bookId,
+      })
+      .whereNull("returned_at");
+
+    if (
+      borrowedCopies.find(
+        (transaction) => transaction.fk_user_id == req.body.userId
+      )
+    ) {
+      return res
+        .status(400)
+        .json({ message: "You already borrowed this book" });
+    }
+
+    const availableCopies = book.quantity - borrowedCopies.length;
+    if (availableCopies < 1) {
+      return res.status(400).json({ message: "No copies left" });
+    }
+
+    await db("library_borrowed_books").insert({
+      fk_book_id: req.body.bookId,
+      fk_user_id: req.body.userId,
+      borrowed_at: req.body.date,
+    });
+
     return res.json({ msg: "update successfully" });
   } catch (err) {
     console.log(err);

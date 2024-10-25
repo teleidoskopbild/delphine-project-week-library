@@ -52,7 +52,6 @@ export default function Profile() {
       setErrorMessage("An error occurred while returning the book.");
     }
   };
-
   return (
     <div className="profile-container">
       <h1> Welcome {username}</h1>
@@ -60,7 +59,7 @@ export default function Profile() {
       {books.length > 0 ? (
         <ul>
           {books.map((book) => (
-            <li key={book.id}>
+            <li key={`${book.id}-${book.borrowed_at}`}>
               {book.title} by {book.author}
               <button onClick={() => handleReturnBook(book.id)}>
                 Return Book

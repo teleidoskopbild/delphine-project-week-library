@@ -60,6 +60,8 @@ export default function Books() {
 
   // Borrow book function
   async function handleBorrow(bookId) {
+    const borrowDate = new Date().toISOString();
+
     if (!userId) {
       setErrorMessage("You must be logged in to borrow a book.");
       return;
@@ -71,9 +73,8 @@ export default function Books() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookId, userId }),
+        body: JSON.stringify({ bookId, userId, date: borrowDate }),
       });
-
       if (response.ok) {
         fetchQuantity(bookId); // Refresh available quantity
       } else {
