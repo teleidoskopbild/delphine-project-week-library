@@ -18,13 +18,13 @@ export default function Books() {
         setBooks(data);
       } else if (response.status === 404) {
         setErrorMessage("books not found.");
-        setBooks(null);
+        setBooks([]);
       } else {
         setErrorMessage("An error occurred. Please try again.");
-        setBooks(null);
+        setBooks([]);
       }
     } catch (error) {
-      setBooks(null);
+      setBooks([]);
       console.error("Error during books:", error);
       setErrorMessage("An internal error occurred. Please try again.");
     }
