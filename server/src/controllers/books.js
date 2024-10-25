@@ -11,6 +11,32 @@ export const getAllBooks = async (req, res) => {
   }
 };
 /**
+ * @api POST /books/borrow, borrow book(update borrowed_at)
+ *
+ * @sampleRequest
+ * {
+ *  "bookId": 1,
+ *  "userId":1,
+ *  "date":"2020-01-01"
+ * }
+ */
+export async function borrowBooks(req, res) {
+  try {
+    const borrowBooks = await db("library_borrowed_books")
+      .first()
+      .where({ fk_book_id: req.body.bookId, fk_user_id: req.body.userId })
+      .update({ borrowed_at: req.body.date })
+      .returning("*");
+    if (borrowBooks.length < 1) {
+      return res.status(404).json({ msg: "Book not found" });
+    }
+    return res.json({ msg: "update successfully" });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ msg: "error" });
+  }
+}
+/**
  * @api POST /books/return Return a Book(update returned_at )
  *
  * @sampleRequest
