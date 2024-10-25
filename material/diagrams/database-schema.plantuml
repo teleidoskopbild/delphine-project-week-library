@@ -28,6 +28,7 @@ map book_genre {
 }
 
 map borrowed_books {
+    id => unique_id
     fk_user_id => unique_id
     fk_book_id => unique_id
     borrowed_at => date

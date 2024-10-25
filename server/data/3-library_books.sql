@@ -1,4 +1,4 @@
-DROP  TABLE IF EXISTS library_books; 
+DROP  TABLE IF EXISTS library_books CASCADE; 
 
 -- Users Table
 CREATE TABLE library_books (
