@@ -30,14 +30,13 @@ export default function Profile() {
 
   const handleReturnBook = async (bookId) => {
     console.log(bookId);
-    const returnDate = new Date().toISOString();
     try {
       const response = await fetch(`http://localhost:3000/books/return`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookId, userId, date: returnDate }),
+        body: JSON.stringify({ bookId, userId }),
       });
 
       if (response.ok) {
