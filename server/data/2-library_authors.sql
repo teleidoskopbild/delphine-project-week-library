@@ -10,12 +10,14 @@ CREATE TABLE library_authors (
 
  -- Insert data into Author table
 INSERT INTO library_authors ( name) VALUES
-( 'Astrid L.'),
-('Franz K.'),
+( 'Astrid Lindgren'),
+('Franz Kafka'),
 ('J.K. Rowling'),
-( 'Frederick P. Brooks Jr'),
-( 'Robert C. Martin'),
-( 'Scott Chacon'),
-('Viktor Mayer-Schönberger'),
-('Robert C. Martin Series');
+( 'Ken Follet'),
+( 'Dan Brown'),
+( 'Stephen King'),
+('Paul Coelho'),
+('George Orwell'),
+('Günter Grass'),
+('Sebastian Fitzek');
 SELECT * FROM library_authors;
