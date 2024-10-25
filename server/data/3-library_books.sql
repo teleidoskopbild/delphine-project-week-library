@@ -9,16 +9,15 @@ CREATE TABLE library_books (
 );
 
 INSERT INTO library_books (title, quantity, fk_author) VALUES
-INSERT INTO library_books (title, quantity, fk_author) VALUES
 ('Pippi Longstocking', 5, 1),
 ('The Brothers Lionheart', 3, 1),
-('Ronia, the Robber\'s Daughter', 4, 1),
+('Ronia, the Robber Daughter', 4, 1),
 
 ('The Metamorphosis', 2, 2),
 ('The Trial', 3, 2),
 ('The Castle', 1, 2),
 
-('Harry Potter and the Philosopher\'s Stone', 10, 3),
+('Harry Potter and the Philosopher Stone', 10, 3),
 ('Harry Potter and the Chamber of Secrets', 7, 3),
 ('Harry Potter and the Prisoner of Azkaban', 8, 3),
 
