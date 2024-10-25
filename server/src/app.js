@@ -7,7 +7,6 @@ import booksRoutes from "./routes/books.js";
 import authors from "./routes/authors.js";
 import authorsRoutes from "./routes/authors.js"; // NOT authors.jsx
 
-//import authorsRoutes from "./routes/authors.jsx";
 const PORT = process.env.PORT || 3000;
 const app = express();
 
