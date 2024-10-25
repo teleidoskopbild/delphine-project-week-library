@@ -3,7 +3,6 @@ import { UserContext } from "../../context/userContext.js";
 
 export default function Profile() {
   const { userId, username } = useContext(UserContext);
-  console.log({ userId });
   const [books, setBooks] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -16,7 +15,6 @@ export default function Profile() {
         if (response.ok) {
           const data = await response.json();
           setBooks(data);
-          console.log(data);
         } else {
           setErrorMessage("Failed to fetch books.");
         }
