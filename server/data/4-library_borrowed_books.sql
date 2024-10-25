@@ -18,7 +18,7 @@ CREATE TABLE library_borrowed_books (
 INSERT INTO library_borrowed_books (fk_user_id, fk_book_id, borrowed_at, returned_at) VALUES
 (1, 1, '2024-10-05', '2024-10-21'),
 (1, 4, '2024-10-21', NULL),
-(1, 24, '2024-10-21', NULL),
+(1, 18, '2024-10-21', NULL),
 (2, 3, '2024-10-10', '2024-10-20'),
 (2, 19,'2024-10-10', '2024-10-20'),
 (2, 23, '2024-10-20', NULL),
