@@ -1,5 +1,3 @@
-//import { useEffect, useState } from "react"; // React hooks
-//}
 import { useState, useEffect } from "react";
 import axios from "axios"; // Axios is used to make HTTP requests
 
