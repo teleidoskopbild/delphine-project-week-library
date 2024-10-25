@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 
 export default function Login() {
-  const { username, setUsername } = useContext(UserContext);
+  const { username, setUsername, setUserId } = useContext(UserContext);
   const [formData, setFormData] = useState({ username: "" });
   const [errorMessage, setErrorMessage] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -27,12 +27,15 @@ export default function Login() {
       if (response.ok) {
         const data = await response.json();
         setUsername(data.name);
+        setUserId(data.userId);
       } else if (response.status === 404) {
         setErrorMessage("User not found.");
         setUsername(null);
+        setUserId(null);
       } else {
         setErrorMessage("An error occurred. Please try again.");
         setUsername(null);
+        setUserId(null);
       }
     } catch (error) {
       setUsername(null);
