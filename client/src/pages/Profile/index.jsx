@@ -30,6 +30,31 @@ export default function Profile() {
     }
   }, [userId]);
 
+  const handleReturnBook = async (bookId) => {
+    console.log(bookId);
+    const returnDate = new Date().toISOString();
+    try {
+      const response = await fetch(`http://localhost:3000/books/return`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bookId, userId, date: returnDate }),
+      });
+
+      if (response.ok) {
+        setBooks(books.filter((book) => book.id !== bookId));
+        alert("Book returned successfully");
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.msg || "Failed to return the book.");
+      }
+    } catch (error) {
+      console.error("Error returning book:", error);
+      setErrorMessage("An error occurred while returning the book.");
+    }
+  };
+
   return (
     <div className="profile-container">
       <h1> Welcome {username}</h1>
@@ -39,6 +64,9 @@ export default function Profile() {
           {books.map((book) => (
             <li key={book.id}>
               {book.title} by {book.author}
+              <button onClick={() => handleReturnBook(book.id)}>
+                Return Book
+              </button>
             </li>
           ))}
         </ul>
