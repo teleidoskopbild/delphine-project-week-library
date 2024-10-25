@@ -36,6 +36,38 @@ export async function returnBooks(req, res) {
     return res.status(500).json({ msg: "error" });
   }
 }
+/**
+ * @api GET /books/available_qty?fk_book_id=1 - Available Quantity a Book
+ */
+export async function availableQty(req, res) {
+  const { fk_book_id } = req.query;
+
+  try {
+    const totalBooks = await db("library_books")
+      .where({ id: fk_book_id })
+      .first();
+    if (!totalBooks) {
+      return res.status(404).json({ message: "Book not found." });
+    }
+    const countResult = await db("library_borrowed_books")
+      .where({ fk_book_id: fk_book_id })
+      .whereNull("returned_at")
+      .count("id as count");
+    const borrowedCount = countResult.length > 0 ? countResult[0].count : 0;
+    const availableQty = totalBooks.quantity - borrowedCount;
+    if (availableQty >= 0) {
+      return res.json({ availableQty });
+    } else {
+      return res
+        .status(404)
+        .json({ message: "No available copies for this book." });
+    }
+  } catch (error) {
+    console.error("Error fetching available quantity:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+}
+
 // Controller function to get borrowed books for a specific user
 export const getUserBorrowedBooks = async (req, res) => {
   const { user_id } = req.params; // Extract the user_id from request params
