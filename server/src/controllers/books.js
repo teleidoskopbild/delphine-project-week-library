@@ -21,6 +21,7 @@ export const getAllBooks = async (req, res) => {
  * }
  */
 export async function borrowBooks(req, res) {
+  const borrowDate = new Date().toISOString();
   try {
     // Check if it is allowed to borrow the book
     // SELECT fk_book_id FROM library_borrowed_books WHERE fk_book_id={bookId} AND returned_at IS NULL
@@ -61,7 +62,7 @@ export async function borrowBooks(req, res) {
     await db("library_borrowed_books").insert({
       fk_book_id: req.body.bookId,
       fk_user_id: req.body.userId,
-      borrowed_at: req.body.date,
+      borrowed_at: borrowDate,
     });
 
     return res.json({ msg: "update successfully" });
@@ -81,11 +82,12 @@ export async function borrowBooks(req, res) {
  * }
  */
 export async function returnBooks(req, res) {
+  const returnDate = new Date().toISOString();
   try {
     const retunBooks = await db("library_borrowed_books")
       .first()
       .where({ fk_book_id: req.body.bookId, fk_user_id: req.body.userId })
-      .update({ returned_at: req.body.date })
+      .update({ returned_at: returnDate })
       .returning("*");
     if (retunBooks.length < 1) {
       return res.status(404).json({ msg: "Book not found" });
