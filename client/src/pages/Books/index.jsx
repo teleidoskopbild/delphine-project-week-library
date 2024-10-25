@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../../context/userContext.js"; // Import UserContext
+import { UserContext } from "../../context/userContext.js";
+const apiUrl = `${import.meta.env.VITE_API_URL}/books`;
 
 export default function Books() {
   const { userId } = useContext(UserContext); // Check if the user is logged in
@@ -11,7 +12,7 @@ export default function Books() {
   async function fetchBooks() {
     setErrorMessage("");
     try {
-      const response = await fetch("http://localhost:3000/books", {
+      const response = await fetch(apiUrl, {
         method: "GET",
       });
       if (response.ok) {
@@ -36,10 +37,8 @@ export default function Books() {
     setErrorMessage("");
     try {
       const response = await fetch(
-        `http://localhost:3000/books/available_qty?fk_book_id=${bookId}`,
-        {
-          method: "GET",
-        }
+        `${apiUrl}/books/available_qty?fk_book_id=${bookId}`,
+        { method: "GET" }
       );
       if (response.ok) {
         const data = await response.json();
@@ -60,18 +59,20 @@ export default function Books() {
 
   // Borrow book function
   async function handleBorrow(bookId) {
+    const borrowDate = new Date().toISOString();
+
     if (!userId) {
       setErrorMessage("You must be logged in to borrow a book.");
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:3000/books/borrow", {
+      const response = await fetch(`${apiUrl}/books/borrow`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookId, userId }),
+        body: JSON.stringify({ bookId, userId, date: borrowDate }),
       });
       if (response.ok) {
         fetchQuantity(bookId); // Refresh available quantity
@@ -84,7 +85,6 @@ export default function Books() {
       setErrorMessage("An internal error occurred. Please try again.");
     }
   }
-
   useEffect(() => {
     fetchBooks();
   }, []);
@@ -112,7 +112,9 @@ export default function Books() {
                   <button onClick={() => handleBorrow(book.id)}>
                     Borrow Book
                   </button>
-                ) : null}
+                ) : (
+                  <p>No copies available</p>
+                )}
               </li>
             );
           })}
