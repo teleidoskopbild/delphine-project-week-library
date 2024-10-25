@@ -1,15 +1,19 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/userContext.js";
+import { useNavigate } from "react-router-dom";
+import "./login.css";
 
 export default function Login() {
-  const { setUserId, username, setUsername } = useContext(UserContext);
-  console.log(username);
+  const { username, setUsername, setUserId } = useContext(UserContext);
   const [formData, setFormData] = useState({ username: "" });
   const [errorMessage, setErrorMessage] = useState("");
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setErrorMessage(""); // Clear any previous error message
+    setErrorMessage("");
+    setIsPopupOpen(true);
 
     try {
       const response = await fetch("http://localhost:3000/users/login", {
@@ -27,9 +31,11 @@ export default function Login() {
       } else if (response.status === 404) {
         setErrorMessage("User not found.");
         setUsername(null);
+        setUserId(null);
       } else {
         setErrorMessage("An error occurred. Please try again.");
         setUsername(null);
+        setUserId(null);
       }
     } catch (error) {
       setUsername(null);
@@ -37,6 +43,10 @@ export default function Login() {
       setErrorMessage("An internal error occurred. Please try again.");
     }
   }
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    navigate("/profile");
+  };
   return (
     <div className="login-container">
       {username ? <p>Logged in as: {username}</p> : null}
@@ -57,6 +67,16 @@ export default function Login() {
         <button type="submit">Login</button>
       </form>
       <p> {errorMessage}</p>
+      {isPopupOpen && (
+        <div className="popup">
+          <div className="popup-content">
+            <span className="close" onClick={closePopup}>
+              &times;
+            </span>
+            <h2>Welcome {username}</h2>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
