@@ -17,10 +17,10 @@ object book {
 }
 
 object borrowed_books {
-    |= fk_user_id |= fk_book_id |= borrowed_at |= returned_at |
-    | 1           | 1           | 2020-01-01   | 2020-01-10   |
-    | 1           | 2           | 2020-01-02   | 2020-01-12   |
-    | 2           | 3           | 2020-01-03   | 2020-01-13   |
+    |= id |= fk_user_id |= fk_book_id |= borrowed_at |= returned_at |
+    |= 1  | 1           | 1           | 2020-01-01   | 2020-01-10   |
+    |= 2  | 1           | 2           | 2020-01-02   | 2020-01-12   |
+    |= 3  | 2           | 3           | 2020-01-03   | 2020-01-13   |
 }
 
 object genres {

@@ -1,31 +1,16 @@
-import { useContext, useState, useEffect } from "react";
-import { UserContext } from "../../context/userContext.js";
+import { useState, useEffect } from "react";
 
 export default function Books() {
   const [books, setBooks] = useState([]);
   const [quantityBorrowed, setQuantityBorrowed] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  //   ----------test---------------
-  const objBooks = [
-    { title: "Book 1", quantity: 5 },
-    { title: "Book 2", quantity: 3 },
-    { title: "Book 3", quantity: 7 },
-  ];
 
-  const objQuantityBorrowed = [
-    { quantity: 2 },
-    { quantity: 1 },
-    { quantity: 4 },
-  ];
   async function fetchBooks() {
     setErrorMessage("");
 
     try {
       const response = await fetch("http://localhost:3000/books", {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
       });
 
       if (response.ok) {
@@ -45,54 +30,56 @@ export default function Books() {
     }
   }
 
-  //   async function fetchquantity() {
-  //     setErrorMessage("");
+  async function fetchQuantity(bookId) {
+    setErrorMessage("");
 
-  //     try {
-  //       const response = await fetch("http://localhost:3000/borrowed_books", {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
+    try {
+      const response = await fetch(
+        `http://localhost:3000/books/available_qty?fk_book_id=${bookId}`,
+        {
+          method: "GET",
+        }
+      );
 
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         setQuantityBorrowed(data);
-  //       } else if (response.status === 404) {
-  //         setErrorMessage("books not found.");
-  //         setQuantityBorrowed(null);
-  //       } else {
-  //         setErrorMessage("An error occurred. Please try again.");
-  //         setQuantityBorrowed(null);
-  //       }
-  //     } catch (error) {
-  //       setQuantityBorrowed(null);
-  //       console.error("Error during books:", error);
-  //       setErrorMessage("An internal error occurred. Please try again.");
-  //     }
-  //   }
+      if (response.ok) {
+        const data = await response.json();
+        setQuantityBorrowed((prev) => ({
+          ...prev,
+          [bookId]: data.availableQty,
+        }));
+      } else if (response.status === 404) {
+        setErrorMessage("Book not found.");
+      } else {
+        setErrorMessage("An error occurred. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during fetching quantity:", error);
+      setErrorMessage("An internal error occurred. Please try again.");
+    }
+  }
 
   useEffect(() => {
     fetchBooks();
-    // fetchquantity();
-    // setBooks(objBooks);
-    setQuantityBorrowed(objQuantityBorrowed);
   }, []);
+
+  useEffect(() => {
+    if (books.length > 0) {
+      books.forEach((book) => {
+        fetchQuantity(book.id);
+      });
+    }
+  }, [books]);
 
   return (
     <div className="books-container">
       <h2>Books List</h2>
-
       {books.length > 0 ? (
         <ul>
-          {books.map((book, index) => {
-            const borrowedQuantity = quantityBorrowed[index]
-              ? quantityBorrowed[index].quantity
-              : 0;
+          {books.map((book) => {
+            const borrowedQuantity = quantityBorrowed[book.id];
             return (
-              <li key={index}>
-                {book.title} - {book.quantity}/{borrowedQuantity}
+              <li key={book.id}>
+                {book.title} - {borrowedQuantity}/{book.quantity}
               </li>
             );
           })}
