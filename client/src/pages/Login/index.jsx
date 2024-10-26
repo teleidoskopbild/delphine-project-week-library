@@ -2,17 +2,17 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../context/userContext.js";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
+import LoginForm from "../../components/LoginForm.jsx";
 
 export default function Login() {
   const { userData, setUserData } = useContext(UserContext);
-  const [formData, setFormData] = useState({ username: "" });
+  // const [formData, setFormData] = useState({ username: "" });
   const [errorMessage, setErrorMessage] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
   const { username } = userData || {};
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleLogin(formUsername) {
     setErrorMessage("");
     setIsPopupOpen(true);
 
@@ -22,7 +22,7 @@ export default function Login() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: formData.username }),
+        body: JSON.stringify({ name: formUsername }),
       });
 
       if (response.ok) {
@@ -51,22 +51,8 @@ export default function Login() {
   return (
     <div className="login-container">
       {username ? <p>Logged in as: {username}</p> : null}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Benutzername:</label>
-          <input
-            type="text"
-            id="username"
-            placeholder="Enter your name"
-            value={formData.username}
-            onChange={(e) =>
-              setFormData({ ...formData, username: e.target.value })
-            }
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+      <LoginForm onSubmit={handleLogin} />
+
       <p> {errorMessage}</p>
       {isPopupOpen && (
         <div className="popup">
