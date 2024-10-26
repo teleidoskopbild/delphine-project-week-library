@@ -2,9 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/userContext.js";
 
 export default function Profile() {
-  const { userId, username } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
   const [books, setBooks] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const { username, userId } = userData;
 
   useEffect(() => {
     async function fetchBooks() {
@@ -29,7 +30,6 @@ export default function Profile() {
   }, [userId]);
 
   const handleReturnBook = async (bookId) => {
-    console.log(bookId);
     try {
       const response = await fetch(`http://localhost:3000/books/return`, {
         method: "POST",

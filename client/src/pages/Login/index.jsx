@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 
 export default function Login() {
-  const { username, setUsername, setUserId } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
   const [formData, setFormData] = useState({ username: "" });
   const [errorMessage, setErrorMessage] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
+  const { username } = userData || {};
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -26,19 +27,19 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        setUsername(data.name);
-        setUserId(data.userId);
+        setUserData({
+          username: data.name,
+          userId: data.userId,
+        });
       } else if (response.status === 404) {
         setErrorMessage("User not found.");
-        setUsername(null);
-        setUserId(null);
+        setUserData({ username: "", userId: "" });
       } else {
         setErrorMessage("An error occurred. Please try again.");
-        setUsername(null);
-        setUserId(null);
+        setUserData({ username: "", userId: "" });
       }
     } catch (error) {
-      setUsername(null);
+      setUserData({ username: "" });
       console.error("Error during login:", error);
       setErrorMessage("An internal error occurred. Please try again.");
     }

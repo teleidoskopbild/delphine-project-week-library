@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Books from "./pages/Books";
 import Profile from "./pages/Profile";
 import Authors from "./pages/Authors";
+import { UserContext } from "./context/userContext.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 const router = createBrowserRouter([
   {
@@ -31,8 +32,26 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
-);
+function Root() {
+  const [userData, setUserData] = useState({
+    username: "",
+    userId: "",
+  });
+
+  return (
+    <StrictMode>
+      <UserContext.Provider value={{ userData, setUserData }}>
+        <RouterProvider router={router} />
+      </UserContext.Provider>
+    </StrictMode>
+  );
+}
+
+createRoot(document.getElementById("root")).render(<Root />);
+// createRoot(document.getElementById("root")).render(
+//   <StrictMode>
+//     <UserContext>
+//       <RouterProvider router={router} />
+//     </UserContext>
+//   </StrictMode>
+// );
