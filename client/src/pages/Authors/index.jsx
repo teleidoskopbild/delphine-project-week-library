@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "../../pages/Authors/Authors.css";
 // Use the VITE_API_URL environment variable for the API base URL
 const apiUrl = `${import.meta.env.VITE_API_URL}/authors`;
 
@@ -40,9 +41,9 @@ function Authors() {
   }
 
   return (
-    <div>
+    <div className="authors-container">
       <h1>Authors</h1>
-      <ul>
+      <ul className="authors-list">
         {authors.map((author) => (
           <li key={author.id}>
             {author.name}{" "}

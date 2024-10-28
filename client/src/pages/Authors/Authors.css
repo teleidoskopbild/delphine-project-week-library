@@ -1,0 +1,41 @@
+/* Authors.css */
+@import "../../index.css";
+
+.authors-container {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: var(--primary-dark);
+}
+
+.authors-container h2 {
+  font-size: var(--big-font);
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.authors-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.authors-list li {
+  padding: 0.5rem;
+  font-size: var(--medium-font);
+  color: var(--secondary-dark);
+  border-bottom: 1px solid var(--primary-light);
+}
+
+.authors-list li:last-child {
+  border-bottom: none;
+}
+
+.loading,
+.error {
+  text-align: center;
+  font-size: var(--medium-font);
+  color: var(--tertiary-color);
+  padding: 1rem;
+}
