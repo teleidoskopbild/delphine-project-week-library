@@ -7,7 +7,7 @@
   padding: 20px;
 }
 
-.thumbnail {
+.thumbnail > img {
   width: 50px;
   height: 70px;
 }
