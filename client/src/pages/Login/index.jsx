@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../context/userContext.js";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-const apiUrl = `${import.meta.env.VITE_API_URL}/login`;
+const apiUrl = `${import.meta.env.VITE_API_URL}/users/login`;
 
 export default function Login() {
   const { username, setUsername, setUserId } = useContext(UserContext);
@@ -24,7 +24,7 @@ export default function Login() {
         },
         body: JSON.stringify({ name: formData.username }),
       });
-
+      console.log(response);
       if (response.ok) {
         const data = await response.json();
         setUsername(data.name);
@@ -74,7 +74,7 @@ export default function Login() {
             <span className="close" onClick={closePopup}>
               &times;
             </span>
-            <h2>Welcome Authors{username}</h2>
+            <h2>Welcome {username}</h2>
           </div>
         </div>
       )}

@@ -82,7 +82,7 @@ export async function borrowBooks(req, res) {
  * }
  */
 export async function returnBooks(req, res) {
-  const returnDate = new Date().toISOString();
+  const returnDate = new Date();
   try {
     const retunBooks = await db("library_borrowed_books")
       .first()
@@ -92,7 +92,7 @@ export async function returnBooks(req, res) {
     if (retunBooks.length < 1) {
       return res.status(404).json({ msg: "Book not found" });
     }
-    return res.json({ msg: "update successfully" });
+    return res.json({ retunBooks });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: "error" });
