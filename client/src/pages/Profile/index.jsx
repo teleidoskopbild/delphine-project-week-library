@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/userContext.js";
+const apiUrl = `${import.meta.env.VITE_API_URL}/users`;
 
 export default function Profile() {
   const { userId, username } = useContext(UserContext);
@@ -9,12 +10,18 @@ export default function Profile() {
   useEffect(() => {
     async function fetchBooks() {
       try {
-        const response = await fetch(
-          `http://localhost:3000/users/${userId}/borrowed_books`
-        );
+        const response = await fetch(`${apiUrl}/${userId}/borrowed_books`);
         if (response.ok) {
           const data = await response.json();
-          setBooks(data);
+          console.log("Fetched books data:", data);
+
+          // Filter books where return_date is exactly null
+          const unreturnedBooks = data.filter(
+            (book) => book.returned_at === null
+          );
+          console.log("Unreturned books:", unreturnedBooks);
+
+          setBooks(unreturnedBooks);
         } else {
           setErrorMessage("Failed to fetch books.");
         }
@@ -31,7 +38,7 @@ export default function Profile() {
   const handleReturnBook = async (bookId) => {
     console.log(bookId);
     try {
-      const response = await fetch(`http://localhost:3000/books/return`, {
+      const response = await fetch(`${apiUrl}/books/return`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
