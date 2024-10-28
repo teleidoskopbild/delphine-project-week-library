@@ -1,9 +1,9 @@
 import Button from "../Button";
 function BookListItem({ book, availableQty, logIn, borrow, returnBook }) {
   return (
-    <>
-      <div className="thumbnail"></div>{" "}
+    <div>
       <li key={book.id}>
+        <div className="thumbnail"></div>
         {book.title}
         {availableQty > 0 && (
           <>
@@ -22,7 +22,7 @@ function BookListItem({ book, availableQty, logIn, borrow, returnBook }) {
           <Button onClick={() => returnBook(book.id)}>Return Book</Button>
         )}
       </li>
-    </>
+    </div>
   );
 }
 
