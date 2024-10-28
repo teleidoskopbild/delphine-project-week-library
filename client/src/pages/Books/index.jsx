@@ -1,12 +1,8 @@
-import { useState, useEffect, useContext } from "react";
-<<<<<<< HEAD
-import { UserContext } from "../../context/userContext.jsx"; // Import UserContext
-=======
-import { UserContext } from "../../context/userContext.js";
+import { useState, useEffect, useContext } from "react"; // Import UserContext
+import { UserContext } from "../../context/userContext.jsx";
 import "./books.css";
 import BookListItem from "../../components/BookListItem";
 const apiUrl = `${import.meta.env.VITE_API_URL}/books`;
->>>>>>> main
 
 export default function Books() {
   const { userData, setUserData } = useContext(UserContext); // Check if the user is logged in
