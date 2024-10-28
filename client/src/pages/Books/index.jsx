@@ -1,5 +1,12 @@
 import { useState, useEffect, useContext } from "react";
+<<<<<<< HEAD
 import { UserContext } from "../../context/userContext.jsx"; // Import UserContext
+=======
+import { UserContext } from "../../context/userContext.js";
+import "./books.css";
+import BookListItem from "../../components/BookListItem";
+const apiUrl = `${import.meta.env.VITE_API_URL}/books`;
+>>>>>>> main
 
 export default function Books() {
   const { userData, setUserData } = useContext(UserContext); // Check if the user is logged in
@@ -12,7 +19,7 @@ export default function Books() {
   async function fetchBooks() {
     setErrorMessage("");
     try {
-      const response = await fetch("http://localhost:3000/books", {
+      const response = await fetch(apiUrl, {
         method: "GET",
       });
       if (response.ok) {
@@ -37,10 +44,8 @@ export default function Books() {
     setErrorMessage("");
     try {
       const response = await fetch(
-        `http://localhost:3000/books/available_qty?fk_book_id=${bookId}`,
-        {
-          method: "GET",
-        }
+        `${apiUrl}/available_qty?fk_book_id=${bookId}`,
+        { method: "GET" }
       );
       if (response.ok) {
         const data = await response.json();
@@ -67,7 +72,7 @@ export default function Books() {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/books/borrow", {
+      const response = await fetch(`${apiUrl}/borrow`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +90,6 @@ export default function Books() {
       setErrorMessage("An internal error occurred. Please try again.");
     }
   }
-
   useEffect(() => {
     fetchBooks();
   }, []);
@@ -107,14 +111,12 @@ export default function Books() {
           {books.map((book) => {
             const availableQty = quantityBorrowed[book.id];
             return (
-              <li key={book.id}>
-                {book.title} - {availableQty}/{book.quantity}
-                {userId && availableQty > 0 ? (
-                  <button onClick={() => handleBorrow(book.id)}>
-                    Borrow Book
-                  </button>
-                ) : null}
-              </li>
+              <BookListItem
+                key={book.id}
+                book={book}
+                availableQty={availableQty}
+                borrow={handleBorrow}
+              />
             );
           })}
         </ul>

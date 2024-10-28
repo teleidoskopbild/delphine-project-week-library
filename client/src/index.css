@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 
-  --primary-color: #3498db;
+  --primary-color: #007bff;
   --primary-light: #9bcaea;
   --primary-dark: #21618c;
 
@@ -24,4 +24,7 @@
   --big-font: 2rem;
   --medium-font: 1.5rem;
   --small-font: 1rem;
+}
+body {
+  box-sizing: border-box;
 }

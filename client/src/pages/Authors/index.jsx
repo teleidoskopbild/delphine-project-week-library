@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import axios from "axios"; // Axios is used to make HTTP requests
+import "../../pages/Authors/Authors.css";
+// Use the VITE_API_URL environment variable for the API base URL
+const apiUrl = `${import.meta.env.VITE_API_URL}/authors`;
 
 function Authors() {
   const [authors, setAuthors] = useState([]); // Initialize as an empty array
@@ -7,11 +9,16 @@ function Authors() {
   const [error, setError] = useState(null); // Error state
 
   useEffect(() => {
-    // Fetch authors data from the backend
-    axios
-      .get("http://localhost:3000/authors") // Adjust the API URL based on your backend setup
+    // Fetch authors data from the backend using fetch
+    fetch(apiUrl) // Adjust the API URL based on your backend setup
       .then((response) => {
-        setAuthors(response.data); // Set the authors data from response
+        if (!response.ok) {
+          throw new Error("Failed to fetch authors"); // Handle non-200 responses
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setAuthors(data); // Set the authors data from response
         setLoading(false); // Set loading to false
       })
       .catch((error) => {
@@ -34,9 +41,9 @@ function Authors() {
   }
 
   return (
-    <div>
+    <div className="authors-container">
       <h1>Authors</h1>
-      <ul>
+      <ul className="authors-list">
         {authors.map((author) => (
           <li key={author.id}>
             {author.name}{" "}

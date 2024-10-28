@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { login } from "../controllers/users.js";
-import { getUserBorrowedBooks } from "../controllers/books.js";
+import { getUserBorrowedBooks } from "../controllers/users.js";
 
 const router = Router();
 
