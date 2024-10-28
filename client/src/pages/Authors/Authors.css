@@ -2,40 +2,54 @@
 @import "../../index.css";
 
 .authors-container {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: var(--primary-dark);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 20px;
+
+  background-color: white; /* Background color of the container */
+  border-radius: 20px; /* Slightly reduced border radius for a cleaner appearance */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  color: black; /* Font color for text inside the container */
 }
 
-.authors-container h2 {
+.authors-container h1 {
   font-size: var(--big-font);
-  color: var(--primary-color);
-  margin-bottom: 1rem;
+  color: var(--primary-color); /* Heading color */
+  margin-bottom: 1rem; /* Space below the heading */
 }
 
 .authors-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+  list-style-type: none; /* Remove default list styles */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+
+  /* Add styles for the list itself to create a box */
+  border: 1px solid var(--primary-light); /* Thinner border for the list */
+  background-color: #f9f9f9; /* Background color for the list */
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  padding: 10px;
+  text-align: center;
 }
 
 .authors-list li {
-  padding: 0.5rem;
-  font-size: var(--medium-font);
-  color: var(--secondary-dark);
-  border-bottom: 1px solid var(--primary-light);
+  padding: 0.5rem; /* Padding for list items */
+  font-size: var(--medium-font); /* Font size for list items */
+  color: black; /* Change list item text color to black */
+  border-bottom: 1px solid var(--primary-light); /* Border between list items */
 }
 
 .authors-list li:last-child {
-  border-bottom: none;
+  border-bottom: none; /* Remove border for the last item */
 }
 
 .loading,
 .error {
-  text-align: center;
-  font-size: var(--medium-font);
-  color: var(--tertiary-color);
-  padding: 1rem;
+  text-align: center; /* Center text for loading/error messages */
+  font-size: var(--medium-font); /* Font size for messages */
+  color: var(--tertiary-color); /* Message color */
+  padding: 1rem; /* Padding around messages */
 }
