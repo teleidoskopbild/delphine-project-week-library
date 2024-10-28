@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Books from "./pages/Books";
 import Profile from "./pages/Profile";
 import Authors from "./pages/Authors";
+import BooksByAuthors from "./pages/Authors/booksByAuthors.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "authors",
         element: <Authors />,
+      },
+      {
+        path: "/authors/:authorId",
+        element: <BooksByAuthors />,
       },
     ],
   },

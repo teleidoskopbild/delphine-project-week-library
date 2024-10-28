@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import "../../pages/Authors/Authors.css";
+import "./Authors.css";
+import { Link } from "react-router-dom";
+
 // Use the VITE_API_URL environment variable for the API base URL
 const apiUrl = `${import.meta.env.VITE_API_URL}/authors`;
 
@@ -9,7 +11,6 @@ function Authors() {
   const [error, setError] = useState(null); // Error state
 
   useEffect(() => {
-    // Fetch authors data from the backend using fetch
     fetch(apiUrl) // Adjust the API URL based on your backend setup
       .then((response) => {
         if (!response.ok) {
@@ -42,12 +43,17 @@ function Authors() {
 
   return (
     <div className="authors-container">
-      <h1>Authors</h1>
+      <h2>Authors</h2>
       <ul className="authors-list">
         {authors.map((author) => (
           <li key={author.id}>
-            {author.name}{" "}
-            {/* Assuming the author object has an "id" and "name" field */}
+            {author.name}
+            <Link
+              to={`/authors/${author.id}`}
+              state={{ authorName: author.name }}
+            >
+              <button>View Books</button>
+            </Link>
           </li>
         ))}
       </ul>

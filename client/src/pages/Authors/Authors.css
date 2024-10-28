@@ -1,55 +1,104 @@
 /* Authors.css */
-@import "../../index.css";
-
 .authors-container {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
-  padding: 20px;
-
-  background-color: white; /* Background color of the container */
-  border-radius: 20px; /* Slightly reduced border radius for a cleaner appearance */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  color: black; /* Font color for text inside the container */
+  padding: 0px;
 }
 
-.authors-container h1 {
-  font-size: var(--big-font);
-  color: var(--primary-color); /* Heading color */
-  margin-bottom: 1rem; /* Space below the heading */
+.authors-container h2 {
+  margin-bottom: 20px;
 }
 
-.authors-list {
-  list-style-type: none; /* Remove default list styles */
-  padding: 0; /* Remove default padding */
-  margin: 0; /* Remove default margin */
-
-  /* Add styles for the list itself to create a box */
-  border: 1px solid var(--primary-light); /* Thinner border for the list */
-  background-color: #f9f9f9; /* Background color for the list */
-  border-radius: 8px;
+.authors-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
   width: 100%;
   max-width: 500px;
-  padding: 10px;
-  text-align: center;
 }
 
 .authors-list li {
-  padding: 0.5rem; /* Padding for list items */
-  font-size: var(--medium-font); /* Font size for list items */
-  color: black; /* Change list item text color to black */
-  border-bottom: 1px solid var(--primary-light); /* Border between list items */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+  min-width: 300px;
+  margin-bottom: 5px;
 }
 
-.authors-list li:last-child {
-  border-bottom: none; /* Remove border for the last item */
+.authors-list li button {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
 }
-
+.books-container li button:hover {
+  background-color: #0056b3;
+}
 .loading,
 .error {
   text-align: center; /* Center text for loading/error messages */
   font-size: var(--medium-font); /* Font size for messages */
   color: var(--tertiary-color); /* Message color */
   padding: 1rem; /* Padding around messages */
+}
+
+@media (max-width: 600px) {
+  .authors-list li {
+    min-width: 210px;
+    margin-right: 0px;
+  }
+  .authors-list ul {
+    min-width: 240px;
+    margin: 0px;
+  }
+}
+/* -----------Books by Authors--------------- */
+.booksAuthors-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.booksAuthors-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+}
+
+.booksAuthors-container ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.booksAuthors-container li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
