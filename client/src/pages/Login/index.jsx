@@ -53,7 +53,7 @@ export default function Login() {
       {username ? <p>Logged in as: {username}</p> : null}
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Benutzername:</label>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
             id="username"
