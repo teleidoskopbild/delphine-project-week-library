@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext.js";
-import Button from "../../components/Button/index.jsx";
+import BookListItem from "../../components/BookListItem";
 const apiUrl = `${import.meta.env.VITE_API_URL}/books`;
 
 export default function Books() {
@@ -105,17 +105,12 @@ export default function Books() {
           {books.map((book) => {
             const availableQty = quantityBorrowed[book.id];
             return (
-              <li key={book.id}>
-                {book.title} - {availableQty}/{book.quantity}
-                {userId && availableQty > 0 ? (
-                  <Button
-                    onClick={() => handleBorrow(book.id)}
-                    disabled={availableQty === 0}
-                  >
-                    Borrow Book
-                  </Button>
-                ) : null}
-              </li>
+              <BookListItem
+                key={book.id}
+                book={book}
+                availableQty={availableQty}
+                borrow={handleBorrow}
+              />
             );
           })}
         </ul>
