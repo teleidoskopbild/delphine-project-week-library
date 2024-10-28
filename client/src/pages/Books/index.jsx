@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext.js";
+import Button from "../../components/Button/index.jsx";
 const apiUrl = `${import.meta.env.VITE_API_URL}/books`;
 
 export default function Books() {
@@ -107,9 +108,12 @@ export default function Books() {
               <li key={book.id}>
                 {book.title} - {availableQty}/{book.quantity}
                 {userId && availableQty > 0 ? (
-                  <button onClick={() => handleBorrow(book.id)}>
+                  <Button
+                    onClick={() => handleBorrow(book.id)}
+                    disabled={availableQty === 0}
+                  >
                     Borrow Book
-                  </button>
+                  </Button>
                 ) : null}
               </li>
             );
