@@ -14,7 +14,15 @@ export default function Profile() {
         );
         if (response.ok) {
           const data = await response.json();
-          setBooks(data);
+          console.log("Fetched books data:", data);
+
+          // Filter books where return_date is exactly null
+          const unreturnedBooks = data.filter(
+            (book) => book.returned_at === null
+          );
+          console.log("Unreturned books:", unreturnedBooks);
+
+          setBooks(unreturnedBooks);
         } else {
           setErrorMessage("Failed to fetch books.");
         }
