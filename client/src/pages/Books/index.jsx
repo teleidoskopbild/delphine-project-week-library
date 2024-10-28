@@ -72,7 +72,7 @@ export default function Books() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookId, userId, date: borrowDate }),
+        body: JSON.stringify({ bookId, userId}),
       });
       if (response.ok) {
         fetchQuantity(bookId); // Refresh available quantity
