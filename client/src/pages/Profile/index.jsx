@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/userContext.js";
+import "../Books/books.css";
 const apiUrl = `${import.meta.env.VITE_API_URL}`;
 
 export default function Profile() {
@@ -61,7 +62,7 @@ export default function Profile() {
     }
   };
   return (
-    <div className="profile-container">
+    <div className="books-container">
       <h1> Welcome {username}</h1>
       {errorMessage && <p>{errorMessage}</p>}
       {books.length > 0 ? (
