@@ -1,6 +1,7 @@
 import { UserContext } from "../../context/userContext.js";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import "./NavBar.css";
 export default function NavBar() {
   const { setUsername, setUserId, username } = useContext(UserContext);
   const onLogoutClick = () => {
@@ -20,11 +21,18 @@ export default function NavBar() {
             ) : (
               <Link to="/login">Login</Link>
             )}
-
-            <Link to="/authors">Authors</Link>
-            <Link to="/">Books</Link>
-            {username && <Link to="/profile">Profile</Link>}
           </li>
+          <li>
+            <Link to="/authors">Authors</Link>
+          </li>
+          <li>
+            <Link to="/">Books</Link>
+          </li>
+          {username && (
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          )}
         </ul>
       </nav>
     </header>
