@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext.js";
 import "./books.css";
+import BookListItem from "../../components/BookListItem";
 const apiUrl = `${import.meta.env.VITE_API_URL}/books`;
 
 export default function Books() {
@@ -105,15 +106,12 @@ export default function Books() {
           {books.map((book) => {
             const availableQty = quantityBorrowed[book.id];
             return (
-              <li key={book.id}>
-                <div className="thumbnail"></div>
-                {book.title} - {availableQty}/{book.quantity}
-                {userId && availableQty > 0 ? (
-                  <button onClick={() => handleBorrow(book.id)}>
-                    Borrow Book
-                  </button>
-                ) : null}
-              </li>
+              <BookListItem
+                key={book.id}
+                book={book}
+                availableQty={availableQty}
+                borrow={handleBorrow}
+              />
             );
           })}
         </ul>
