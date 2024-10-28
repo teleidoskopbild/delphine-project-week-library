@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/userContext.js";
-const apiUrl = `${import.meta.env.VITE_API_URL}/users`;
+const apiUrl = `${import.meta.env.VITE_API_URL}`;
 
 export default function Profile() {
   const { userId, username } = useContext(UserContext);
@@ -10,7 +10,9 @@ export default function Profile() {
   useEffect(() => {
     async function fetchBooks() {
       try {
-        const response = await fetch(`${apiUrl}/${userId}/borrowed_books`);
+        const response = await fetch(
+          `${apiUrl}/users/${userId}/borrowed_books`
+        );
         if (response.ok) {
           const data = await response.json();
           console.log("Fetched books data:", data);
