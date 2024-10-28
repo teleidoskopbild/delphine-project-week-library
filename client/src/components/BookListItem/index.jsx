@@ -3,7 +3,9 @@ function BookListItem({ book, availableQty, logIn, borrow, returnBook }) {
   return (
     <div>
       <li key={book.id}>
-        <div className="thumbnail"></div>
+        <div className="thumbnail">
+          <img src={`/thumbnails/${book.id}.jpg`} />
+        </div>
         {book.title}
         {availableQty > 0 && (
           <>
