@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext.js";
-import BookListItem from "../../components/BookListItem.jsx";
+import BookListItem from "../../components/BookListItem";
 const apiUrl = `${import.meta.env.VITE_API_URL}/books`;
 
 export default function Books() {

@@ -1,3 +1,4 @@
+import Button from "../Button";
 function BookListItem({ book, availableQty, logIn, borrow, returnBook }) {
   return (
     <li key={book.id}>
@@ -5,11 +6,13 @@ function BookListItem({ book, availableQty, logIn, borrow, returnBook }) {
       {availableQty > 0 && (
         <>
           {availableQty}/{book.quantity}
-          <button onClick={() => borrow(book.id)}>Borrow Book</button>
+          <Button onClick={() => borrow(book.id)} disabled={availableQty === 0}>
+            Borrow Book
+          </Button>{" "}
         </>
       )}
       {logIn && (
-        <button onClick={() => returnBook(book.id)}>Return Book</button>
+        <Button onClick={() => returnBook(book.id)}>Return Book</Button>
       )}
     </li>
   );
