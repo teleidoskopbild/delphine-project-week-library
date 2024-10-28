@@ -11,6 +11,8 @@ function BookListItem({ book, availableQty, logIn, borrow, returnBook }) {
           </Button>{" "}
         </>
       )}
+      {availableQty === 0 && <span>No copies</span>}
+
       {logIn && (
         <Button onClick={() => returnBook(book.id)}>Return Book</Button>
       )}
