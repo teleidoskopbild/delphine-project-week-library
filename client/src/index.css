@@ -25,3 +25,6 @@
   --medium-font: 1.5rem;
   --small-font: 1rem;
 }
+body {
+  box-sizing: border-box;
+}
