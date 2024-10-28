@@ -37,7 +37,7 @@ export default function Books() {
     setErrorMessage("");
     try {
       const response = await fetch(
-        `${apiUrl}/books/available_qty?fk_book_id=${bookId}`,
+        `${apiUrl}/available_qty?fk_book_id=${bookId}`,
         { method: "GET" }
       );
       if (response.ok) {
@@ -59,20 +59,18 @@ export default function Books() {
 
   // Borrow book function
   async function handleBorrow(bookId) {
-    const borrowDate = new Date().toISOString();
-
     if (!userId) {
       setErrorMessage("You must be logged in to borrow a book.");
       return;
     }
 
     try {
-      const response = await fetch(`${apiUrl}/books/borrow`, {
+      const response = await fetch(`${apiUrl}/borrow`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookId, userId}),
+        body: JSON.stringify({ bookId, userId }),
       });
       if (response.ok) {
         fetchQuantity(bookId); // Refresh available quantity
@@ -112,9 +110,7 @@ export default function Books() {
                   <button onClick={() => handleBorrow(book.id)}>
                     Borrow Book
                   </button>
-                ) : (
-                  <p>No copies available</p>
-                )}
+                ) : null}
               </li>
             );
           })}
