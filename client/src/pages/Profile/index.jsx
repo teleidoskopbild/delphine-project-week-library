@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/userContext.js";
+import BookListItem from "../../components/BookListItem.jsx";
+
 const apiUrl = `${import.meta.env.VITE_API_URL}`;
 
 export default function Profile() {
@@ -67,12 +69,12 @@ export default function Profile() {
       {books.length > 0 ? (
         <ul>
           {books.map((book) => (
-            <li key={`${book.id}-${book.borrowed_at}`}>
-              {book.title} by {book.author}
-              <button onClick={() => handleReturnBook(book.id)}>
-                Return Book
-              </button>
-            </li>
+            <BookListItem
+              key={`${book.id}-${book.borrowed_at}`}
+              book={book}
+              logIn={true}
+              returnBook={handleReturnBook}
+            />
           ))}
         </ul>
       ) : (
