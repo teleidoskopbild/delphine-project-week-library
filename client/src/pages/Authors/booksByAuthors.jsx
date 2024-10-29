@@ -29,7 +29,7 @@ function BooksByAuthors() {
 
     fetchBooks();
   }, [authorId]);
-
+  console.log(books);
   return (
     <div className="booksAuthors-container">
       <h2>Books by Author {authorName}</h2>
@@ -37,7 +37,7 @@ function BooksByAuthors() {
         {books.map((book) => (
           <li key={book.bookTitle}>
             <div className="thumbnail">
-              {/* <img src={`/thumbnails/${book.id}.jpg`} /> */}
+              <img src={`/thumbnails/${book.bookId}.jpg`} />
             </div>
             {book.bookTitle}
           </li>

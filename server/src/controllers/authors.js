@@ -20,7 +20,8 @@ export async function getBooksByAuthors(req, res) {
       .select(
         "library_authors.id AS authorId",
         "library_authors.name AS authorName",
-        "library_books.title AS bookTitle"
+        "library_books.title AS bookTitle",
+        "library_books.id AS bookId"
       )
       .where("library_authors.id", req.params.authorId);
 
