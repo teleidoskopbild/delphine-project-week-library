@@ -101,24 +101,26 @@ export default function Books() {
   return (
     <div className="books-container">
       <h2>Books List</h2>
-      {errorMessage && <p className="error">{errorMessage}</p>}
-      {books.length > 0 ? (
-        <ul>
-          {books.map((book) => {
-            const availableQty = quantityBorrowed[book.id];
-            return (
-              <BookListItem
-                key={book.id}
-                book={book}
-                availableQty={availableQty}
-                borrow={handleBorrow}
-              />
-            );
-          })}
-        </ul>
-      ) : (
-        <p>No books available.</p>
-      )}
+      <div className="single-books">
+        {errorMessage && <p className="error">{errorMessage}</p>}
+        {books.length > 0 ? (
+          <ul>
+            {books.map((book) => {
+              const availableQty = quantityBorrowed[book.id];
+              return (
+                <BookListItem
+                  key={book.id}
+                  book={book}
+                  availableQty={availableQty}
+                  borrow={handleBorrow}
+                />
+              );
+            })}
+          </ul>
+        ) : (
+          <p>No books available.</p>
+        )}
+      </div>
     </div>
   );
 }
