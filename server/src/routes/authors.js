@@ -1,18 +1,10 @@
-import express from "express";
-import db from "../util/db-connect.js"; // Ensure db connection is correct
+import { Router } from "express";
+import { getAllAuthors } from "../controllers/authors.js";
+import { getBooksByAuthors } from "../controllers/authors.js";
 
-const router = express.Router();
+const router = Router();
 
-// Get all authors
-router.get("/", async (req, res) => {
-  try {
-    // Fetch all authors from the library_authors table
-    const authors = await db("library_authors").select("*");
-    res.json(authors);
-  } catch (error) {
-    console.error("Error fetching authors:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
+router.get("/", getAllAuthors);
+router.get("/:authorId/books", getBooksByAuthors);
 
 export default router;
