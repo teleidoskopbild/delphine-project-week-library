@@ -79,7 +79,7 @@ export default function Profile() {
           ))}
         </ul>
       ) : (
-        <p>No books found for this user.</p>
+        <p>You have not borrowed any books at the moment.</p>
       )}
     </div>
   );

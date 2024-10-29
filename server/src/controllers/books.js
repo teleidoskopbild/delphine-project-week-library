@@ -3,7 +3,14 @@ import db from "../util/db-connect.js";
 // Get all books
 export const getAllBooks = async (req, res) => {
   try {
-    const books = await db("library_books");
+    const books = await db("library_books")
+      .join(
+        "library_authors",
+        "library_books.fk_author",
+        "=",
+        "library_authors.id"
+      )
+      .select("library_books.*", "library_authors.name as authorName");
     return res.json(books);
   } catch (error) {
     console.error("Error fetching notes:", error);
