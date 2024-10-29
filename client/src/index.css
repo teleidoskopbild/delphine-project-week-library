@@ -19,6 +19,11 @@
   --warning-color: #f39c12;
   --success-color: #27ae60;
 
+  --gray-color: #6c757d;
+  --gray-light: #f4f4f4;
+  --gray-lighter: #c9c4c4;
+  --gray-dark: #0000001a;
+
   --font-main: "Arial", sans-serif;
   --font-side: "Courier New", monospace;
 
@@ -28,4 +33,5 @@
 }
 body {
   box-sizing: border-box;
+  background-color: var(--gray-light);
 }

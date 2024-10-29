@@ -6,3 +6,4 @@
 \i './2-library_authors.sql'
 \i './3-library_books.sql'
 \i './4-library_borrowed_books.sql'
+\i './5-booksByAuthors.sql'
