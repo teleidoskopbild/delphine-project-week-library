@@ -67,7 +67,7 @@ export default function Profile() {
   return (
     <div className="books-container">
       <h1> Welcome {username}</h1>
- <Error message={errorMessage}
+ <Error message={errorMessage}></Error>
       {books.length > 0 ? (
         <ul>
           {books.map((book) => (
