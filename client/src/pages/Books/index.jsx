@@ -1,14 +1,15 @@
-import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../../context/userContext.js";
+import { useState, useEffect, useContext } from "react"; // Import UserContext
+import { UserContext } from "../../context/userContext.jsx";
 import "./books.css";
 import BookListItem from "../../components/BookListItem";
 const apiUrl = `${import.meta.env.VITE_API_URL}/books`;
 
 export default function Books() {
-  const { userId } = useContext(UserContext); // Check if the user is logged in
+  const { userData, setUserData } = useContext(UserContext); // Check if the user is logged in
   const [books, setBooks] = useState([]);
   const [quantityBorrowed, setQuantityBorrowed] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+  const { userId } = userData || {};
 
   // Fetch books from the server
   async function fetchBooks() {

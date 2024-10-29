@@ -1,45 +1,45 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../../context/userContext.js";
+import { UserContext } from "../../context/userContext.jsx";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-const apiUrl = `${import.meta.env.VITE_API_URL}/users/login`;
+import LoginForm from "../../components/LoginForm.jsx";
 
 export default function Login() {
-  const { username, setUsername, setUserId } = useContext(UserContext);
-  const [formData, setFormData] = useState({ username: "" });
+  const { userData, setUserData } = useContext(UserContext);
+  // const [formData, setFormData] = useState({ username: "" });
   const [errorMessage, setErrorMessage] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
+  const { username } = userData || {};
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleLogin(formUsername) {
     setErrorMessage("");
     setIsPopupOpen(true);
 
     try {
-      const response = await fetch(apiUrl, {
+      const response = await fetch("http://localhost:3000/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: formData.username }),
+        body: JSON.stringify({ name: formUsername }),
       });
-      console.log(response);
+
       if (response.ok) {
         const data = await response.json();
-        setUsername(data.name);
-        setUserId(data.userId);
+        setUserData({
+          username: data.name,
+          userId: data.userId,
+        });
       } else if (response.status === 404) {
         setErrorMessage("User not found.");
-        setUsername(null);
-        setUserId(null);
+        setUserData({ username: "", userId: "" });
       } else {
         setErrorMessage("An error occurred. Please try again.");
-        setUsername(null);
-        setUserId(null);
+        setUserData({ username: "", userId: "" });
       }
     } catch (error) {
-      setUsername(null);
+      setUserData({ username: "" });
       console.error("Error during login:", error);
       setErrorMessage("An internal error occurred. Please try again.");
     }
@@ -51,22 +51,8 @@ export default function Login() {
   return (
     <div className="login-container">
       {username ? <p>Logged in as: {username}</p> : null}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            placeholder="Enter your name"
-            value={formData.username}
-            onChange={(e) =>
-              setFormData({ ...formData, username: e.target.value })
-            }
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+      <LoginForm onSubmit={handleLogin} />
+
       <p> {errorMessage}</p>
       {isPopupOpen && (
         <div className="popup">
