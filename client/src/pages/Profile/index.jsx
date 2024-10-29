@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../context/userContext.js";
+import { UserContext } from "../../context/userContext.jsx";
 import "../Books/books.css";
 import BookListItem from "../../components/BookListItem";
 
 const apiUrl = `${import.meta.env.VITE_API_URL}`;
 
 export default function Profile() {
-  const { userId, username } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
   const [books, setBooks] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const { username, userId } = userData;
 
   useEffect(() => {
     async function fetchBooks() {
@@ -41,7 +42,6 @@ export default function Profile() {
   }, [userId]);
 
   const handleReturnBook = async (bookId) => {
-    console.log(bookId);
     try {
       const response = await fetch(`${apiUrl}/books/return`, {
         method: "POST",

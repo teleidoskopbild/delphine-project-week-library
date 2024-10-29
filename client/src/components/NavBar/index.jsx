@@ -1,12 +1,12 @@
-import { UserContext } from "../../context/userContext.js";
+import { UserContext } from "../../context/userContext.jsx";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 export default function NavBar() {
-  const { setUsername, setUserId, username } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
+  const { username, userId } = userData;
   const onLogoutClick = () => {
-    setUsername(null);
-    setUserId(null);
+    setUserData({ username: "", userId: "" });
   };
 
   return (
