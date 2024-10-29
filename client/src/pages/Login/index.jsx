@@ -3,7 +3,6 @@ import { UserContext } from "../../context/userContext.jsx";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import LoginForm from "../../components/LoginForm.jsx";
-import Error from "../../Error/Error.jsx";
 
 export default function Login() {
   const { userData, setUserData } = useContext(UserContext);
@@ -54,7 +53,7 @@ export default function Login() {
       {username ? <p>Logged in as: {username}</p> : null}
       <LoginForm onSubmit={handleLogin} />
 
-      <Error message={errorMessage} />
+      <p> {errorMessage}</p>
       {isPopupOpen && (
         <div className="popup">
           <div className="popup-content">
