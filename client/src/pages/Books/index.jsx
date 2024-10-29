@@ -104,7 +104,6 @@ export default function Books() {
       <h2>Books List</h2>
       <Error message={errorMessage} />{" "}
       {/* Display error using Error component */}
-      {errorMessage && <p className="error">{errorMessage}</p>}
       {books.length > 0 ? (
         <ul>
           {books.map((book) => {

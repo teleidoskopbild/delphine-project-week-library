@@ -1,9 +1,12 @@
-// Error.jsx
+import "../Error/Error.css";
 
-function Error({ message }) {
-  if (!message) return null; // Return null if there's no error message to display
+function Error({ message, type = "error" }) {
+  if (!message) return null;
+
   return (
-    <div className="error-message">
+    <div className={`error-message ${type}`}>
+      {" "}
+      {/*  Apply type class */}
       <p>{message}</p>
     </div>
   );
