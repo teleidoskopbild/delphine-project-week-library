@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react"; // Import UserContext
 import { UserContext } from "../../context/userContext.jsx";
 import "./books.css";
 import BookListItem from "../../components/BookListItem";
+import Error from "../../Error/Error.jsx";
 const apiUrl = `${import.meta.env.VITE_API_URL}/books`;
 
 export default function Books() {
@@ -101,7 +102,8 @@ export default function Books() {
   return (
     <div className="books-container">
       <h2>Books List</h2>
-      {errorMessage && <p className="error">{errorMessage}</p>}
+      <Error message={errorMessage} />{" "}
+      {/* Display error using Error component */}
       {books.length > 0 ? (
         <ul>
           {books.map((book) => {
