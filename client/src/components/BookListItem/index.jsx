@@ -21,13 +21,10 @@ function BookListItem({ book, availableQty, logIn, borrow, returnBook }) {
             </Button>
           </>
         ) : (
-          <div>No books available</div> // Diese Nachricht erscheint nur, wenn availableQty gleich 0 ist
+          <Button style={{ backgroundColor: "red" }}>Out of Stock</Button>
+          // Diese Nachricht erscheint nur, wenn availableQty gleich 0 ist
         )}
       </div>
-
-      {availableQty === 0 && (
-        <Button style={{ backgroundColor: "red" }}>Out of Stock</Button>
-      )}
 
       {logIn && (
         <Button onClick={() => returnBook(book.id)}>Return Book</Button>
