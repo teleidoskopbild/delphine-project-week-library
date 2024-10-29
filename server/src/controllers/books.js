@@ -105,20 +105,35 @@ export async function availableQty(req, res) {
   const { fk_book_id } = req.query;
 
   try {
-    const totalBooks = await db("library_books")
-      .where({ id: fk_book_id })
-      .first();
+    const totalBooks = await db("library_books as b")
+      .select(
+        "b.title",
+        "b.quantity as total_quantity",
+        "b.id",
+        db.raw(
+          "COALESCE(b.quantity - COUNT(bb.id), b.quantity) as available_quantity"
+        )
+      )
+      .leftJoin("library_borrowed_books as bb", function () {
+        this.on("b.id", "=", "bb.fk_book_id").andOnNull("bb.returned_at");
+      })
+      .groupBy("b.id");
+    console.log(totalBooks);
     if (!totalBooks) {
       return res.status(404).json({ message: "Book not found." });
     }
-    const countResult = await db("library_borrowed_books")
-      .where({ fk_book_id: fk_book_id })
-      .whereNull("returned_at")
-      .count("id as count");
-    const borrowedCount = countResult.length > 0 ? countResult[0].count : 0;
-    const availableQty = totalBooks.quantity - borrowedCount;
-    if (availableQty >= 0) {
-      return res.json({ availableQty });
+    console.log(fk_book_id);
+    const selectedBook = totalBooks.find(
+      (book) => book.id === parseInt(fk_book_id)
+    );
+    console.log(selectedBook);
+    // If we have a query parameter to get the available quantity for a book with given id, we just return this value as before 'avaiableQty'
+    if (selectedBook && fk_book_id) {
+      return res.json({ availableQty: selectedBook.available_quantity });
+    } else if (totalBooks) {
+      // If we don't have a book id through query param but a result with all available quantities of the books, we return the full result
+      // Attention: keep in mind to handle this result differently in client!
+      return res.json(totalBooks);
     } else {
       return res
         .status(404)

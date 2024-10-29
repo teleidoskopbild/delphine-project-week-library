@@ -9,7 +9,7 @@ function BookListItem({ book, availableQty, logIn, borrow, returnBook }) {
         {book.title}
         {availableQty > 0 && (
           <>
-            -{availableQty}/{book.quantity}
+            -{availableQty}/{book.total_quantity}
             <Button
               onClick={() => borrow(book.id)}
               disabled={availableQty === 0}
