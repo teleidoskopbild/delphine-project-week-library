@@ -14,7 +14,7 @@ export default function Books() {
   async function fetchBooks() {
     setErrorMessage("");
     try {
-      const response = await fetch(`${apiUrl}/available_qty`, {
+      const response = await fetch(`${apiUrl}`, {
         method: "GET",
       });
       if (response.ok) {

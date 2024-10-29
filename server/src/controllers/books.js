@@ -1,15 +1,5 @@
 import db from "../util/db-connect.js";
 
-// Get all books
-export const getAllBooks = async (req, res) => {
-  try {
-    const books = await db("library_books");
-    return res.json(books);
-  } catch (error) {
-    console.error("Error fetching notes:", error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
-};
 /**
  * @api POST /books/borrow, borrow book(update borrowed_at)
  *
@@ -101,12 +91,13 @@ export async function returnBooks(req, res) {
 /**
  * @api GET /books/available_qty?fk_book_id=1 - Available Quantity a Book
  */
-export async function availableQty(req, res) {
+export async function getAllBooks(req, res) {
   const { fk_book_id } = req.query;
 
   try {
     const totalBooks = await db("library_books as b")
       .select(
+        "library_authors.name as authorName",
         "b.title",
         "b.quantity as total_quantity",
         "b.id",
@@ -117,20 +108,16 @@ export async function availableQty(req, res) {
       .leftJoin("library_borrowed_books as bb", function () {
         this.on("b.id", "=", "bb.fk_book_id").andOnNull("bb.returned_at");
       })
-      .groupBy("b.id");
+      .join("library_authors", "b.fk_author", "=", "library_authors.id")
+
+      .groupBy("b.id", "library_authors.name");
     console.log(totalBooks);
     if (!totalBooks) {
       return res.status(404).json({ message: "Book not found." });
     }
-    console.log(fk_book_id);
-    const selectedBook = totalBooks.find(
-      (book) => book.id === parseInt(fk_book_id)
-    );
-    console.log(selectedBook);
+
     // If we have a query parameter to get the available quantity for a book with given id, we just return this value as before 'avaiableQty'
-    if (selectedBook && fk_book_id) {
-      return res.json({ availableQty: selectedBook.available_quantity });
-    } else if (totalBooks) {
+    if (totalBooks) {
       // If we don't have a book id through query param but a result with all available quantities of the books, we return the full result
       // Attention: keep in mind to handle this result differently in client!
       return res.json(totalBooks);
