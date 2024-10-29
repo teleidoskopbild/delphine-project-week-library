@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import "./Authors.css";
-import Error from "../../Error/Error";
 function BooksByAuthors() {
   const { authorId } = useParams();
   const location = useLocation();
@@ -34,7 +33,6 @@ function BooksByAuthors() {
   return (
     <div className="booksAuthors-container">
       <h2>Books by Author {authorName}</h2>
-      <Error message={error} /> {/* Display error using Error component */}
       <ul>
         {books.map((book) => (
           <li key={book.bookTitle}>
