@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/userContext.jsx";
 import "../Books/books.css";
 import BookListItem from "../../components/BookListItem";
+import Error from "../../Error/Error.jsx";
 
 const apiUrl = `${import.meta.env.VITE_API_URL}`;
 
@@ -66,7 +67,7 @@ export default function Profile() {
   return (
     <div className="books-container">
       <h1> Welcome {username}</h1>
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <Error message={errorMessage} />}
       {books.length > 0 ? (
         <ul>
           {books.map((book) => (

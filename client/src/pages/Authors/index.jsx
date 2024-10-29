@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Authors.css";
 import { Link } from "react-router-dom";
+import Error from "../../Error/Error";
 
 // Use the VITE_API_URL environment variable for the API base URL
 const apiUrl = `${import.meta.env.VITE_API_URL}/authors`;
@@ -44,6 +45,7 @@ function Authors() {
   return (
     <div className="authors-container">
       <h2>Authors</h2>
+      <Error message={error} /> {/* Display error using Error component */}
       <ul className="authors-list">
         {authors.map((author) => (
           <li key={author.id}>
