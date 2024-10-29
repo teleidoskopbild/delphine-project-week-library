@@ -13,5 +13,5 @@ const db = knex({
     },
   },
 });
-
+console.log(process.env.POSTGRES_DATABASE);
 export default db;
